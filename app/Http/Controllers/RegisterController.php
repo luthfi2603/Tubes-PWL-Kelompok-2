@@ -13,7 +13,7 @@ class RegisterController extends Controller {
     public function store(Request $request){
         $validatedData = $request->validate([
             'nama' => 'required|max:40',
-            'gender' => 'required|',
+            'gender' => 'required|in:Pria,Wanita',
             'alamat' => 'required',
             'kota' => 'required|max:40',
             'provinsi' => 'required|max:40',
@@ -30,7 +30,9 @@ class RegisterController extends Controller {
 
         if($request->file('image')){
             $validatedData['image'] = $request->file('image')->store('assets/img');
-        }       
+        }else{
+            $validatedData['image'] = 'no_photo.png';
+        }
         
         $validatedData['password'] = bcrypt($validatedData['password']);
         User::create($validatedData);

@@ -20,7 +20,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="gender" class="form-label">Jenis Kelamin</label>
-                        <select name="gender" class="form-select" id="gender">
+                        <select name="gender" class="form-select @error('gender') is-invalid @enderror" id="gender">
                             @if(old('gender') == 'Pria')
                                 <option value="Pria" selected>Pria</option>
                                 <option value="Wanita">Wanita</option>
@@ -28,11 +28,16 @@
                                 <option value="Pria">Pria</option>
                                 <option value="Wanita" selected>Wanita</option>
                             @else
-                                <option value="NULL" selected>Pilih jenis kelamin anda</option>
+                                <option selected>Pilih jenis kelamin anda</option>
                                 <option value="Pria">Pria</option>
                                 <option value="Wanita">Wanita</option>
                             @endif
                         </select>
+                        @error('gender')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                     <div class="mb-3">
                         <label for="alamat" class="form-label">Alamat</label>
