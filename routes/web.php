@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +14,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function(){
+Route::get('/versi', function(){
     return view('welcome');
+});
+
+Route::get('/', function(){
+    return view('index');
+});
+
+Route::get('/detail', function(){
+    return view('detail');
 });
 
 Route::get('/halaman', function(){
     return view('halaman');
 });
+
+Route::get('/login', function(){
+    return view('login');
+});
+
+Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
+Route::post('/register', [RegisterController::class, 'store']);
