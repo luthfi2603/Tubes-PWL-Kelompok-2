@@ -20,8 +20,8 @@ class RegisterController extends Controller {
             'kode_pos' => 'required|max:20',
             'no_hp' => 'required|max:20',
             'username' => ['required', 'min:3', 'max:30', 'unique:users'],
-            'password' => 'required|min:5|max:255|same:kon_password',
-            'kon_password' => 'required|same:password',
+            'password' => 'required|min:5|max:255|same:konfirmasi_password',
+            'konfirmasi_password' => 'required|same:password',
             'email' => 'required|email|unique:users|max:50',
             'image' => 'image|file|max:2048'
         ]);
@@ -31,7 +31,7 @@ class RegisterController extends Controller {
         if($request->file('image')){
             $validatedData['image'] = $request->file('image')->store('assets/img');
         }else{
-            $validatedData['image'] = 'no_photo.png';
+            $validatedData['image'] = 'assets/img/no_photo.png';
         }
         
         $validatedData['password'] = bcrypt($validatedData['password']);

@@ -9,6 +9,7 @@
     <title>GoMarket</title>
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
 
 <body>
@@ -38,7 +39,6 @@
                 </ul>
             </div>
             <!--fitur search-->
-            <img src="../assets/ikon/keranjang.png" alt="keranjang" style="width: 45px; height: 40px;" rel="shortcut icon">
             <nav class="navbar bg-light">
                 <div class="container-fluid">
                     <form class="d-flex" role="search">
@@ -47,9 +47,32 @@
                     </form>
                 </div>
             </nav>
-            <!--fitur masuk dan daftar-->
-            <a href="/login" class="btn btn-outline-success">Login</a>
-            <a href="/register" class="btn btn-outline-success mx-2">Register</a>
+            <ul class="navbar-nav ms-auto">
+                @auth
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Selamat datang, {{ auth()->user()->nama }}
+                            <img src="{{ asset('storage/' . auth()->user()->image . '') }}" class="rounded-circle ms-1" style="width:40px;">
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/dashboard">
+                                <i class="bi bi-cart"></i> Keranjang</a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form action="/logout" method="POST">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item"><i class="bi bi-box-arrow-right"></i> Logout</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                @else
+                    <!--fitur masuk dan daftar-->
+                    <a href="/login" class="btn btn-outline-success">Login</a>
+                    <a href="/register" class="btn btn-outline-success mx-2">Register</a>
+                @endauth
+            </ul>
         </div>
     </nav>
 

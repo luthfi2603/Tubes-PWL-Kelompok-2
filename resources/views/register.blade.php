@@ -106,9 +106,9 @@
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="kon_password" class="form-label">Konfirmasi Password </label>
-                        <input name="kon_password" type="password" class="form-control @error('kon_password') is-invalid @enderror" id="kon_password" placeholder="Masukkan konfirmasi password anda">
-                        @error('kon_password')
+                        <label for="konfirmasi_password" class="form-label">Konfirmasi Password </label>
+                        <input name="konfirmasi_password" type="password" class="form-control @error('konfirmasi_password') is-invalid @enderror" id="konfirmasi_password" placeholder="Masukkan konfirmasi password anda">
+                        @error('konfirmasi_password')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
@@ -137,5 +137,12 @@
                 </div>
             </div>
         </form>
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <small class="d-block text-center mt-3">
+                    Sudah daftar? <a class="text-decoration-none" href="/login">Silahkan login</a>
+                </small>
+            </div>
+        </div>
     </div>
 @endsection
