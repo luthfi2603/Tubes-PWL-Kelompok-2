@@ -52,17 +52,26 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Selamat datang, {{ auth()->user()->nama }}
-                            <img src="{{ asset('storage/' . auth()->user()->image . '') }}" class="rounded-circle ms-1" style="width:40px;">
+                            @if((auth()->user()->image) == 'assets/img/no_photo.png')
+                                <img src="{{ asset('' . auth()->user()->image . '') }}" class="rounded-circle ms-1" style="width:40px;">
+                            @else
+                                <img src="{{ asset('storage/' . auth()->user()->image . '') }}" class="rounded-circle ms-1" style="width:40px;">
+                            @endif
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="/dashboard">
                                 <i class="bi bi-cart"></i> Keranjang</a>
                             </li>
+                            @can('admin')
+                                <li><a class="dropdown-item" href="/admin">
+                                    <i class="bi bi-person-gear"></i> Admin</a>
+                                </li>
+                            @endcan
                             <li><hr class="dropdown-divider"></li>
                             <li>
                                 <form action="/logout" method="POST">
                                     @csrf
-                                    <button type="submit" class="dropdown-item"><i class="bi bi-box-arrow-right"></i> Logout</button>
+                                    <button onclick="return confirm('Apakah kamu yakin?')" type="submit" class="dropdown-item"><i class="bi bi-box-arrow-right"></i> Logout</button>
                                 </form>
                             </li>
                         </ul>

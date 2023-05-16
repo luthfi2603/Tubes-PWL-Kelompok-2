@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
@@ -37,6 +38,14 @@ Route::put('/reset-password', [LoginController::class, 'resetPassLogic']);
 
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store']);
+
+Route::get('/admin', [AdminController::class, 'index'])->middleware('admin');
+Route::get('/admin/users', [AdminController::class, 'myUsers'])->middleware('admin');
+Route::get('/admin/users/create', [AdminController::class, 'showCreateUser'])->middleware('admin');
+Route::post('/admin/users/create', [AdminController::class, 'createUser'])->middleware('admin');
+Route::get('/admin/users/{user}/edit', [AdminController::class, 'showEditUser'])->name('users.edit')->middleware('admin');
+Route::put('/admin/users/{user}/edit', [AdminController::class, 'editUser'])->name('users.update')->middleware('admin');
+Route::delete('/admin/users/{user}/delete', [AdminController::class, 'deleteUser'])->name('users.delete')->middleware('admin');
 
 Route::get('/1', function(){
     return view('bagian_keisya.BuktiPembelian');

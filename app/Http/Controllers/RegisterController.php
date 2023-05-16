@@ -26,7 +26,7 @@ class RegisterController extends Controller {
             'image' => 'image|file|max:2048'
         ]);
 
-        $validatedData['level'] = '2';
+        $validatedData['level'] = '0';
 
         if($request->file('image')){
             $validatedData['image'] = $request->file('image')->store('assets/img');

@@ -23,7 +23,7 @@ return new class extends Migration {
             $table->string('provinsi', 40);
             $table->string('kode_pos', 20);
             $table->string('no_hp', 20);
-            $table->integer('level');
+            $table->boolean('level')->default(false);
             $table->string('password');
             $table->timestamps();
         });
