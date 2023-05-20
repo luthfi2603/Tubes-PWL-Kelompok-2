@@ -155,7 +155,7 @@
             </div>
             <div class="row justify-content-center">
                 <div class="d-grid gap-2 col-3 mt-1">
-                    <button class="btn btn-dark tombol" type="submit" name="registrasi">Create</button>
+                    <button class="btn btn-dark" type="submit">Create</button>
                 </div>
             </div>
         </form>

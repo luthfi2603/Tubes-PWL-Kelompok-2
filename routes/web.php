@@ -38,6 +38,11 @@ Route::put('/reset-password', [LoginController::class, 'resetPassLogic']);
 
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store']);
+Route::get('/profil/{user:username}', [RegisterController::class, 'showProfil'])->name('profil');
+Route::put('/profil/{user}', [RegisterController::class, 'editProfil'])->name('profil.update');
+Route::delete('/profil/{user}/delete', [RegisterController::class, 'deleteAkun'])->name('akun.delete');
+Route::get('/profil/reset-password/ubah', [RegisterController::class, 'showResetPassword']);
+Route::put('/profil/reset-password/ubah', [RegisterController::class, 'ResetPassword']);
 
 Route::get('/admin', [AdminController::class, 'index'])->middleware('admin');
 Route::get('/admin/users', [AdminController::class, 'myUsers'])->middleware('admin');

@@ -54,6 +54,21 @@ class AdminController extends Controller {
     }
 
     public function editUser(Request $request, User $user){
+        if(
+            $request->nama == $user->nama &&
+            $request->gender == $user->gender &&
+            $request->alamat == $user->alamat &&
+            $request->kota == $user->kota &&
+            $request->provinsi == $user->provinsi &&
+            $request->kode_pos == $user->kode_pos &&
+            $request->no_hp == $user->no_hp &&
+            $request->level == $user->level &&
+            $request->username == $user->username &&
+            $request->email == $user->email &&
+            !$request->file('image')
+        ){
+            return redirect('/admin/users/' . $user->id . '/edit')->with('failed', 'User gagal diupdate');
+        }
         $rules = [
             'nama' => 'required|max:40',
             'gender' => 'required|in:Pria,Wanita',

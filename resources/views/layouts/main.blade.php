@@ -51,7 +51,7 @@
                 @auth
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Selamat datang, {{ auth()->user()->nama }}
+                            Selamat datang, {{ auth()->user()->username }}
                             @if((auth()->user()->image) == 'assets/img/no_photo.png')
                                 <img src="{{ asset('' . auth()->user()->image . '') }}" class="rounded-circle ms-1" style="width:40px;">
                             @else
@@ -59,12 +59,16 @@
                             @endif
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/dashboard">
-                                <i class="bi bi-cart"></i> Keranjang</a>
-                            </li>
                             @can('admin')
                                 <li><a class="dropdown-item" href="/admin">
                                     <i class="bi bi-person-gear"></i> Admin</a>
+                                </li>
+                            @else
+                                <li><a class="dropdown-item" href="/dashboard">
+                                    <i class="bi bi-cart"></i> Keranjang</a>
+                                </li>
+                                <li><a class="dropdown-item" href="/profil/{{ auth()->user()->username }}">
+                                    <i class="bi bi-person"></i> Profil</a>
                                 </li>
                             @endcan
                             <li><hr class="dropdown-divider"></li>
@@ -93,8 +97,7 @@
         <div class="text-start mt-5 pt-4" style="background-color:mediumaquamarine;">
             <div class="container  row">
                 <div class="col-md-4 d-flex align-items-center ">
-                    <img src="assets/img/logo.png" alt="GoMarket Logo"
-                        style="width: fit-content; height: 190px;">
+                    <img src="{{ asset('assets/img/logo.png') }}" alt="GoMarket Logo" style="width: fit-content; height: 190px;">
                 </div>
                 <div class="col-md-4 align-self-center">
                     <h4>Tentang GoMarket</h4>

@@ -4,7 +4,12 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Edit User</h1>
     </div>
-
+    @if(session()->has('failed'))
+        <div class="alert alert-danger alert-dismissible fade show col-lg-8" role="alert">
+            {{ session('failed') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     <div class="my-4">
         <form action="{{ route('users.update', ['user' => $user->id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -142,7 +147,7 @@
             </div>
             <div class="row justify-content-center">
                 <div class="d-grid gap-2 col-3 mt-1">
-                    <button class="btn btn-dark tombol" type="submit" name="registrasi">Update</button>
+                    <button class="btn btn-dark" type="submit">Update</button>
                 </div>
             </div>
         </form>
