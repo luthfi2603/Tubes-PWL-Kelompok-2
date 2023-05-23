@@ -13,17 +13,16 @@
                     Users
                 </a>
             </li>
-        </ul>
-        <h6>
-            <span class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                Administrator
-            </span>
-        </h6>
-        <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link {{ Request::is('dashboard/categories*') ? 'active' : ''}}" href="/dashboard/categories">
-                    <span data-feather="grid" class="align-text-bottom"></span>
-                    Post Categories
+                <a class="nav-link {{ Request::is('admin/products*') ? 'active' : ''}}" href="/admin/products">
+                    <span data-feather="package" class="align-text-bottom"></span>
+                    Products
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('admin/pesanan*') ? 'active' : ''}}" href="/admin/pesanan">
+                    <span data-feather="shopping-bag" class="align-text-bottom"></span>
+                    Pesanan
                 </a>
             </li>
         </ul>

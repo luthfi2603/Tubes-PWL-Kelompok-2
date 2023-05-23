@@ -109,4 +109,24 @@ class AdminController extends Controller {
         $user->delete();
         return redirect('/admin/users')->with('success', "User Berhasil Dihapus!");
     }
+
+    public function products(){
+        return view('admin.products.index', [
+            'products' => User::all()
+        ]);
+    }
+
+    public function showAddProduct(){
+        return view('admin.products.add');
+    }
+
+    public function addProduct(){
+        return view('admin.products.add');
+    }
+
+    public function pesanan(){
+        return view('admin.pesanan.index', [
+            'users' => User::all()
+        ]);
+    }
 }

@@ -51,6 +51,10 @@ Route::post('/admin/users/create', [AdminController::class, 'createUser'])->midd
 Route::get('/admin/users/{user}/edit', [AdminController::class, 'showEditUser'])->name('users.edit')->middleware('admin');
 Route::put('/admin/users/{user}/edit', [AdminController::class, 'editUser'])->name('users.update')->middleware('admin');
 Route::delete('/admin/users/{user}/delete', [AdminController::class, 'deleteUser'])->name('users.delete')->middleware('admin');
+Route::get('/admin/products', [AdminController::class, 'products'])->middleware('admin');
+Route::get('/admin/products/add', [AdminController::class, 'showAddProduct'])->middleware('admin');
+Route::post('/admin/products/add', [AdminController::class, 'addProduct'])->middleware('admin');
+Route::get('/admin/pesanan', [AdminController::class, 'pesanan'])->middleware('admin');
 
 Route::get('/1', function(){
     return view('bagian_keisya.BuktiPembelian');

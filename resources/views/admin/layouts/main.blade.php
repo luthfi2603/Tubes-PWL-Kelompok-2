@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>WPU Blog | Dashboard</title>
+    <title>GoMarket Admin</title>
+    <link href="{{ asset('assets/img/logo.png') }}" sizes="16x16 32x32" rel="shortcut icon">
     <link href="{{ asset('assets/css/bootstrap.css') }}" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="{{ asset('assets/css/dashboard.css') }}" rel="stylesheet">
