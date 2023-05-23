@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Tambah Data Produk</title>
+    <title>Ubah Data Produk</title>
     <link rel="stylesheet" href="{{ asset ('assets/css/admin.css')}}">
 </head>
 <body>
@@ -21,18 +21,18 @@
         </nav>
     </aside>
     <div class="content">
-  <h1>Add Data</h1>
+  <h1>Update Data</h1>
 
-  <form action="/bagian_keisya/store_post" method="POST" enctype="multipat/form-data">
+  <form action="{{route('posts.update', ['id'=> $post->id])}}" method="POST" enctype="multipat/form-data">
     @csrf
-
-    <input type="hidden" value="1" name="id">
+    @method('PUT')
+    <input type="hidden" value="{{$post->id}}" name="id">
     <label for="title">Name*</label>
     <input type="text" class="form-control @error('product_name') is-invalid @enderror" id="product_name" 
       placeholder="Product name" 
       required 
       name="product_name"
-      value="{{old('product_name')}}"/>
+      value="{{$post->product_name}}"/>
       @error('product_name')
       <div class="text-danger">{{$message}}</div>
       @enderror
@@ -41,7 +41,7 @@
       <input type="text" class="form-control @error('merk') is-invalid @enderror" id="merk" 
         required 
         name="merk"
-        value="{{old('merk')}}"/>
+        value="{{$post->merk}}"/>
         @error('merk')
         <div class="text-danger">{{$message}}</div>
         @enderror
@@ -51,13 +51,13 @@
         placeholder="Product Price (Rp.)" 
         required 
         name="price"
-        value="{{old('price')}}"/>
+        value="{{$post->price}}"/>
         @error('price')
         <div class="text-danger">{{$message}}</div>
         @enderror
     
     <label for="product_detail">Product Description</label>
-    <textarea name="product_detail" cols="30" rows="10" class="form-control @error('product_detail') is-invalid @enderror" id="product_detail" required name="content">{{old('product_detail')}}</textarea>
+    <textarea name="product_detail" cols="30" rows="10" class="form-control @error('product_detail') is-invalid @enderror" id="product_detail" required name="content">{{$post->product_detail}}</textarea>
 
     <label for="image_product" class="form-label">Image</label>
         <input type="file" class="form-control @error('image_product') is-invalid @enderror" id="image_product">

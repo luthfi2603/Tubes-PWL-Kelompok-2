@@ -50,47 +50,92 @@ class ProductController extends Controller
         return redirect('/bagian_keisya/tambahDataproduk')->with('success', 'Product baru berhasil dibuat');
         
     }
-
-
-    public function showEditProduk(Post $post)
+    public function showupdateProduct()
+    { 
+        return view('bagian_keisya.ubahDataproduk');
+    }
+   
+    public function edit_post($id)
     {
-        return view('bagian_keisya.showEditProduk', compact('post'));
+        $post= Post::find($id);
+        return view('bagian_keisya.ubahDataproduk', compact('post'));
     }
 
 
-    public function editProduk(Request $request, Post $post)
+    public function update_post(Request $request, string $id)
     {
-        $rules = [
-            'id' => 'required|min:1',
+
+        $post=Post::find($id);
+         $validated = $request->validate([
+    
+    
             'product_name' => 'required|max:100',
             'price' => 'required',
             'product_detail' => 'required|max:3000',
             'merk' => 'required|max:40',
             'image_product' => 'image|file|max:2048'
-        ];
-        $validatedData = $request->validate($rules);
+        ]);
+       
+       
+        $post -> product_name = $request->product_name;
+        $post -> price = $request->price;
+        $post -> product_detail = $request->product_detail;
+        $post -> merk = $request->merk;
 
-        if($request->file('image')){
-            if($request->oldImage != 'assets/img/no_photo.png'){
-                Storage::delete($request->oldImage);
-            }
-            $validatedData['image'] = $request->file('image')->store('assets/img');
+        if($request->hasFile('image_product')){
+            //define img location
+            $location = public_path('/img');
+    
+            //ambil file img dan simpan ke local server
+            $request->file('image_product')->move($location, $request->file('image_product')->getClientOriginalName());
+    
+            //simpan nama file di database
+            $post->image= $request ->file('image_product')->getClientOriginalName();
         }
+        $post->update($request->all());
+       return redirect('tambahDataproduk')->with('update_status', "Postingan berhasil diperbaharui!");
+        
+    }
 
-        Post::where('id', $post->id)
-            ->update($validatedData);
+    public function store_post(Request $request)
+    {
+        $validated = $request->validate([
+    
+            'product_name' => 'required|max:100',
+            'price' => 'required',
+            'product_detail' => 'required|max:3000',
+            'merk' => 'required|max:40',
+            'image_product' => 'image|file|max:2048'
+        ]);
+        $new_post = new Post;
+        $new_post -> id = $request->id;
+        $new_post -> product_name = $request->product_name;
+        $new_post -> price = $request->price;
+        $new_post -> product_detail = $request->product_detail;
+        $new_post -> merk = $request->merk;
 
-        return redirect('/bagian_keisya/showEditProduk')->with('success', 'Produk berhasil diupdate');
+
+        if($request->hasFile('image_product')){
+            //define img location
+            $location = public_path('/img');
+
+            //ambil file img dan simpan ke local server
+            $request->file('image_product')->move($location, $request->file('image_product')->getClientOriginalName());
+
+            //simpan nama file di database
+            $new_post->image= $request ->file('image_product')->getClientOriginalName();
+        }
+        $new_post->save();
+       return redirect('/tambahDataproduk')->with('status', "Postingan berhasil ditambahkan!");
     }
 
 
-    public function deleteProduk(Post $post)
+    public function delete_post( $id)
     {
-        if($user->image != 'assets/img/no_photo.png'){
-            Storage::delete($post->image);
-        }
-        $user->delete();
-        return redirect('/bagian_keisya/deleteproduk')->with('success', "Produk Berhasil Dihapus!");
+        $post=Post::find($id);
+        $post->delete();
+
+        return redirect('/bagian_keisya/ubahDataproduk')->with('status', "Postingan berhasil dihapus"); 
     }
 }
 
