@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Tambah Data Produk</title>
-    <link rel="stylesheet" href="{{ asset ('css/admin.css')}}">
+    <link rel="stylesheet" href="{{ asset ('assets/css/admin.css')}}">
 </head>
 <body>
   <main class="main">
@@ -30,6 +30,13 @@
       required 
       title="required"
       value=""/>
+
+      <label for="title">Merk*</label>
+      <input type="text" name="title" 
+        placeholder="Product merk" 
+        required 
+        title="required"
+        value=""/>
 
       <label for="title">Price*</label>
       <input type="text" name="title" 

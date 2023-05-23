@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,11 +20,16 @@ use App\Http\Controllers\RegisterController;
 Route::get('/versi', function(){
     return view('welcome');
 });
-
+/*
 Route::get('/', function(){
-    return view('index');
+    $posts = DB::table('posts')->get();
+    return view('index',
+    ['posts' => $posts
+]);
 });
-
+*/
+Route::get('/', [ProductController::class, 'myProduct']);
+Route::get('/tambahDataproduk', [ProductController::class, 'showCreateProduct']);
 Route::get('/detail', function(){
     return view('detail');
 });

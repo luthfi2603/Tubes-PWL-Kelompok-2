@@ -124,69 +124,31 @@
 
     <!--Card barang-->
     <div class="alert alert-success text-center p-0 my-4" role="alert">
-        <h1>Barang Lainnya</h1>
+        <h1>Makanan dan Minuman</h1>
     </div>
     {{-- <h1 class="text-center my-4" style="background-color: mediumaquamarine;">Barang Lainnya</h1> --}}
     <div class="container">
         <div class="row mb-4">
+            @php $i=1; @endphp
+            @if(isset($posts))
+            @foreach($posts as $post)
             <div class="col-3">
                 <div class="card">
-                    <img src="assets/img/gula.jpg" class="card-img-top" alt="...">
+                    <img src="{{asset('assets/img/'.$post->image_product)}}" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Gula</h5>
-                        <p class="card-text">Harga</p>
+                        <h5 class="card-title">{{$post->product_name}}</h5>
+                        <p class="card-text">{{$post->price}}</p>
                         <a href="detail_barang.html" class="btn btn-primary">Detail Barang</a>
                     </div>
                 </div>
             </div>
+           <!--
             <div class="col-3">
                 <div class="card">
-                    <img src="assets/img/sabun.jpg" class="card-img-top" alt="...">
+                    <img src="{{$post->image_product}}" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Nama barang</h5>
-                        <p class="card-text">Harga</p>
-                        <a href="detail_barang.html" class="btn btn-primary">Detail Barang</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card">
-                    <img src="assets/img/sabun.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Nama barang</h5>
-                        <p class="card-text">Harga</p>
-                        <a href="detail_barang.html" class="btn btn-primary">Detail Barang</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card">
-                    <img src="assets/img/sabun.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Nama barang</h5>
-                        <p class="card-text">Harga</p>
-                        <a href="detail_barang.html" class="btn btn-primary">Detail Barang</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row mb-4">
-            <div class="col-3">
-                <div class="card">
-                    <img src="assets/img/sabun.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Nama barang</h5>
-                        <p class="card-text">Harga</p>
-                        <a href="detail_barang.html" class="btn btn-primary">Detail Barang</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card">
-                    <img src="assets/img/sabun.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Nama barang</h5>
-                        <p class="card-text">Harga</p>
+                        <h5 class="card-title">{{$post->product_name}}</h5>
+                        <p class="card-text">{{$post->price}}</p>
                         <a href="detail_barang.html" class="btn btn-primary">Detail Barang</a>
                     </div>
                 </div>
@@ -275,6 +237,52 @@
                     </div>
                 </div>
             </div>
+            <div class="col-3">
+                <div class="card">
+                    <img src="assets/img/sabun.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Nama barang</h5>
+                        <p class="card-text">Harga</p>
+                        <a href="detail_barang.html" class="btn btn-primary">Detail Barang</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card">
+                    <img src="assets/img/sabun.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Nama barang</h5>
+                        <p class="card-text">Harga</p>
+                        <a href="detail_barang.html" class="btn btn-primary">Detail Barang</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-3">
+                <div class="card">
+                    <img src="assets/img/sabun.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Nama barang</h5>
+                        <p class="card-text">Harga</p>
+                        <a href="detail_barang.html" class="btn btn-primary">Detail Barang</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card">
+                    <img src="assets/img/sabun.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Nama barang</h5>
+                        <p class="card-text">Harga</p>
+                        <a href="detail_barang.html" class="btn btn-primary">Detail Barang</a>
+                    </div>
+                </div>
+            </div>
+        -->
         </div>
     </div>
+    @php $i++; @endphp
+    @endforeach
+    @endif
 @endsection
