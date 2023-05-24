@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Keranjang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,6 +27,7 @@ class LoginController extends Controller {
     }
 
     public function logout(){
+        Keranjang::truncate();
         Auth::logout();
         request()->session()->invalidate();
         request()->session()->regenerateToken();
