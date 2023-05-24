@@ -27,6 +27,7 @@ Route::get('/keranjang', [TampilanController::class, 'showKeranjang']);
 Route::post('/keranjang', [TampilanController::class, 'keranjang']);
 Route::delete('/keranjang/{keranjang}/delete', [TampilanController::class, 'deleteProduct'])->name('productKeranjang.delete');
 Route::delete('/keranjang/delete', [TampilanController::class, 'deleteAllProduct'])->name('productKeranjangAll.delete');
+Route::get('/konbayar', [TampilanController::class, 'konfirbayar']);
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
@@ -58,6 +59,7 @@ Route::get('/admin/products/{product}/edit', [AdminController::class, 'showEditP
 Route::put('/admin/products/{product}/edit', [AdminController::class, 'editProduct'])->name('products.update')->middleware('admin');
 Route::get('/admin/pesanan', [AdminController::class, 'pesanan'])->middleware('admin');
 Route::delete('/admin/products/{product}/delete', [AdminController::class, 'deleteProduct'])->name('products.delete')->middleware('admin');
+
 
 Route::get('/1', function(){
     return view('bagian_keisya.BuktiPembelian');
