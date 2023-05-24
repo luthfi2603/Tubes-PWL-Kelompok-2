@@ -1,9 +1,20 @@
 @extends('layouts.main')
 
 @section('container')
+    @if(session()->has('danger'))
+        <div class="alert alert-danger alert-dismissible fade show col-8 mx-auto" role="alert">
+            {{ session('danger') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @elseif(session()->has('success'))
+        <div class="alert alert-success alert-dismissible fade show col-8 mx-auto" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     <!--Halaman Home-->
     <!--bagian carousel-->
-    <div id="carouselExampleControls" class="carousel slide mb-4" data-bs-ride="carousel">
+    <div id="gambarAwal" class="carousel slide mb-4" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <img src="{{ asset('assets/img/carousel1.webp') }}" class="d-block w-100" alt="...">
@@ -12,21 +23,20 @@
                 <img src="{{ asset('assets/img/carousel2.png') }}" class="d-block w-100" alt="...">
             </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+        <button class="carousel-control-prev" type="button" data-bs-target="#gambarAwal" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+        <button class="carousel-control-next" type="button" data-bs-target="#gambarAwal" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>
     </div>
 
     <!--carousel card-->
-    <div class="alert alert-success text-center p-0 mb-4" role="alert">
+    {{-- <div class="alert alert-success text-center p-0 mb-4" role="alert">
         <h1>Rekomendasi Barang</h1>
     </div>
-    {{-- <h1 class="text-center mb-4" style="background-color: mediumaquamarine;">Rekomendasi Barang</h1> --}}
     <div class="container">
         <div id="carousel-card" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
@@ -120,169 +130,38 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
-    </div>
+    </div> --}}
 
     <!--Card barang-->
     <div class="alert alert-success text-center p-0 my-4" role="alert">
-        <h1>Makanan dan Minuman</h1>
+        <h1>Semua Produk</h1>
     </div>
-    {{-- <h1 class="text-center my-4" style="background-color: mediumaquamarine;">Barang Lainnya</h1> --}}
     <div class="container">
-        <div class="row mb-4">
-            @php $i=1; @endphp
-            @if(isset($posts))
-            @foreach($posts as $post)
-            <div class="col-3">
-                <div class="card">
-                    <img src="{{asset('assets/img/'.$post->image_product)}}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">{{$post->product_name}}</h5>
-                        <p class="card-text">{{$post->price}}</p>
-                        <a href="detail_barang.html" class="btn btn-primary">Detail Barang</a>
+        <div class="row">
+            @if(isset($products))
+                @foreach($products as $product)
+                    <div class="col-3 mb-4">
+                        <div class="card">
+                            <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $product->nama_produk }}</h5>
+                                <p class="card-text">
+                                    Harga : <br>
+                                    Rp {{ number_format($product->harga_produk, 0, '.', '.') }}
+                                    <br>
+                                    <div style="overflow: hidden;height: 100px;">
+                                        {{ $product->deskripsi_produk }}
+                                    </div>
+                                </p>
+                                <a href="/detail/{{ $product->id }}" class="btn btn-outline-success">Detail Barang</a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-           <!--
-            <div class="col-3">
-                <div class="card">
-                    <img src="{{$post->image_product}}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">{{$post->product_name}}</h5>
-                        <p class="card-text">{{$post->price}}</p>
-                        <a href="detail_barang.html" class="btn btn-primary">Detail Barang</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card">
-                    <img src="assets/img/sabun.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Nama barang</h5>
-                        <p class="card-text">Harga</p>
-                        <a href="detail_barang.html" class="btn btn-primary">Detail Barang</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card">
-                    <img src="assets/img/sabun.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Nama barang</h5>
-                        <p class="card-text">Harga</p>
-                        <a href="detail_barang.html" class="btn btn-primary">Detail Barang</a>
-                    </div>
-                </div>
-            </div>
+                @endforeach
+            @endif
         </div>
-        <div class="row mb-4">
-            <div class="col-3">
-                <div class="card">
-                    <img src="assets/img/sabun.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Nama barang</h5>
-                        <p class="card-text">Harga</p>
-                        <a href="detail_barang.html" class="btn btn-primary">Detail Barang</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card">
-                    <img src="assets/img/sabun.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Nama barang</h5>
-                        <p class="card-text">Harga</p>
-                        <a href="detail_barang.html" class="btn btn-primary">Detail Barang</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card">
-                    <img src="assets/img/sabun.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Nama barang</h5>
-                        <p class="card-text">Harga</p>
-                        <a href="detail_barang.html" class="btn btn-primary">Detail Barang</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card">
-                    <img src="assets/img/sabun.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Nama barang</h5>
-                        <p class="card-text">Harga</p>
-                        <a href="detail_barang.html" class="btn btn-primary">Detail Barang</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row mb-4">
-            <div class="col-3">
-                <div class="card">
-                    <img src="assets/img/sabun.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Nama barang</h5>
-                        <p class="card-text">Harga</p>
-                        <a href="detail_barang.html" class="btn btn-primary">Detail Barang</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card">
-                    <img src="assets/img/sabun.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Nama barang</h5>
-                        <p class="card-text">Harga</p>
-                        <a href="detail_barang.html" class="btn btn-primary">Detail Barang</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card">
-                    <img src="assets/img/sabun.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Nama barang</h5>
-                        <p class="card-text">Harga</p>
-                        <a href="detail_barang.html" class="btn btn-primary">Detail Barang</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card">
-                    <img src="assets/img/sabun.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Nama barang</h5>
-                        <p class="card-text">Harga</p>
-                        <a href="detail_barang.html" class="btn btn-primary">Detail Barang</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row mb-4">
-            <div class="col-3">
-                <div class="card">
-                    <img src="assets/img/sabun.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Nama barang</h5>
-                        <p class="card-text">Harga</p>
-                        <a href="detail_barang.html" class="btn btn-primary">Detail Barang</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card">
-                    <img src="assets/img/sabun.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Nama barang</h5>
-                        <p class="card-text">Harga</p>
-                        <a href="detail_barang.html" class="btn btn-primary">Detail Barang</a>
-                    </div>
-                </div>
-            </div>
-        -->
+        <div class="d-flex justify-content-center">
+            {{ $products->links() }}
         </div>
     </div>
-    @php $i++; @endphp
-    @endforeach
-    @endif
 @endsection

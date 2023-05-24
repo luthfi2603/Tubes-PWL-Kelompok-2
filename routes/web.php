@@ -4,7 +4,7 @@ use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TampilanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,19 +20,13 @@ use App\Http\Controllers\ProductController;
 Route::get('/versi', function(){
     return view('welcome');
 });
-/*
-Route::get('/', function(){
-    $posts = DB::table('posts')->get();
-    return view('index',
-    ['posts' => $posts
-]);
-});
-*/
-Route::get('/', [ProductController::class, 'myProduct']);
-Route::get('/tambahDataproduk', [ProductController::class, 'showCreateProduct']);
-Route::get('/detail', function(){
-    return view('detail');
-});
+
+Route::get('/', [TampilanController::class, 'myProduct']);
+Route::get('/detail/{product}', [TampilanController::class, 'detailProduct']);
+Route::get('/keranjang', [TampilanController::class, 'showKeranjang']);
+Route::post('/keranjang', [TampilanController::class, 'keranjang']);
+Route::delete('/keranjang/{keranjang}/delete', [TampilanController::class, 'deleteProduct'])->name('productKeranjang.delete');
+Route::delete('/keranjang/delete', [TampilanController::class, 'deleteAllProduct'])->name('productKeranjangAll.delete');
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
@@ -60,7 +54,10 @@ Route::delete('/admin/users/{user}/delete', [AdminController::class, 'deleteUser
 Route::get('/admin/products', [AdminController::class, 'products'])->middleware('admin');
 Route::get('/admin/products/add', [AdminController::class, 'showAddProduct'])->middleware('admin');
 Route::post('/admin/products/add', [AdminController::class, 'addProduct'])->middleware('admin');
+Route::get('/admin/products/{product}/edit', [AdminController::class, 'showEditProduct'])->name('products.edit')->middleware('admin');
+Route::put('/admin/products/{product}/edit', [AdminController::class, 'editProduct'])->name('products.update')->middleware('admin');
 Route::get('/admin/pesanan', [AdminController::class, 'pesanan'])->middleware('admin');
+Route::delete('/admin/products/{product}/delete', [AdminController::class, 'deleteProduct'])->name('products.delete')->middleware('admin');
 
 Route::get('/1', function(){
     return view('bagian_keisya.BuktiPembelian');

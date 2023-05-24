@@ -5,13 +5,13 @@
         <h1 class="h2">Products</h1>
     </div>
     @if(session()->has('success'))
-        <div class="alert alert-success alert-dismissible fade show col-lg-8" role="alert">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
     <div class="table-responsive">
-        <a href="/admin/products/add" class="btn btn-primary mb-3">Add new produtct</a>
+        <a href="/admin/products/add" class="btn btn-primary mb-3">Add new product</a>
         <table class="table table-striped table-sm text-center align-middle">
             <thead>
                 <tr>
@@ -26,22 +26,22 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($products as $user)
+                @foreach($products as $product)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        @if($user->image == 'assets/img/no_photo.png')
-                            <td><img src="{{ asset('../' . $user->image . '') }}" width="50px"></td>
+                        @if($product->image == 'assets/img/no_photo.png')
+                            <td><img src="{{ asset('../' . $product->image . '') }}" width="100px"></td>
                         @else
-                            <td><img src="{{ asset('storage/' . $user->image . '') }}" width="50px"></td>
+                            <td><img src="{{ asset('storage/' . $product->image . '') }}" width="100px"></td>
                         @endif
-                        <td>{{ $user->nama }}</td>
-                        <td>{{ $user->username }}</td>
-                        <td>{{ $user->email }}</td>
-                        <td>{{ $user->no_hp }}</td>
-                        <td>{{ $user->gender }}</td>
+                        <td>{{ $product->nama_produk }}</td>
+                        <td width="110px">Rp {{ number_format($product->harga_produk, 0, '.', '.') }}</td>
+                        <td>{{ $product->kategori_produk }}</td>
+                        <td>{{ $product->merek_produk }}</td>
+                        <td>{{ $product->deskripsi_produk }}</td>
                         <td>
-                            <a href="{{ route('users.edit', ['user' => $user->id]) }}" class="badge bg-warning"><span data-feather="edit"></span></a>
-                            <form action="{{ route('users.delete', ['user' => $user->id]) }}" method="POST" class="d-inline">
+                            <a href="{{ route('products.edit', ['product' => $product->id]) }}" class="badge bg-warning"><span data-feather="edit"></span></a>
+                            <form action="{{ route('products.delete', ['product' => $product->id]) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
                                 <button class="border-0 badge bg-danger" onclick="return confirm('Are you sure?')"><span data-feather="x-circle"></span></button>
@@ -51,5 +51,8 @@
                 @endforeach
             </tbody>
         </table>
+    </div>
+    <div class="d-flex justify-content-center mb-5">
+        {{ $products->links() }}
     </div>
 @endsection

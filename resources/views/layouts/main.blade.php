@@ -16,39 +16,14 @@
     <!--bagian navbar untuk landing page-->
     <nav class="navbar navbar-expand-lg bg-light mb-4">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">
-                <img src="{{ asset('assets/img/logo.png') }}" alt="Logo" width="60" height="55" class="d-inline-block align-text-top">
+            <a class="navbar-brand ms-2" href="/">
+                <img src="{{ asset('assets/img/logo.png') }}" alt="Logo" height="55" class="d-inline-block align-text-top">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Makanan</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Minuman</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Alat Dapur</a>
-                    </li>
-                </ul>
-            </div>
-            <!--fitur search-->
-            <nav class="navbar bg-light">
-                <div class="container-fluid">
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
-                </div>
-            </nav>
             <ul class="navbar-nav ms-auto">
                 @auth
+                    <li class="nav-item">
+                        <a class="btn btn-outline-success me-2 mt-2" href="/search">Search</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Selamat datang, {{ auth()->user()->username }}
@@ -64,7 +39,7 @@
                                     <i class="bi bi-person-gear"></i> Admin</a>
                                 </li>
                             @else
-                                <li><a class="dropdown-item" href="/dashboard">
+                                <li><a class="dropdown-item" href="/keranjang">
                                     <i class="bi bi-cart"></i> Keranjang</a>
                                 </li>
                                 <li><a class="dropdown-item" href="/profil/{{ auth()->user()->username }}">
@@ -82,6 +57,7 @@
                     </li>
                 @else
                     <!--fitur masuk dan daftar-->
+                    <a class="btn btn-outline-success me-2" href="/search">Search</a>
                     <a href="/login" class="btn btn-outline-success">Login</a>
                     <a href="/register" class="btn btn-outline-success mx-2">Register</a>
                 @endauth
@@ -96,8 +72,8 @@
     <footer>
         <div class="text-start mt-5 pt-4" style="background-color:mediumaquamarine;">
             <div class="container  row">
-                <div class="col-md-4 d-flex align-items-center ">
-                    <img src="{{ asset('assets/img/logo.png') }}" alt="GoMarket Logo" style="width: fit-content; height: 190px;">
+                <div class="col-md-4 d-flex align-items-center">
+                    <img src="{{ asset('assets/img/logo.png') }}" alt="GoMarket Logo" style="width: fit-content; height: 190px;" class="ms-4">
                 </div>
                 <div class="col-md-4 align-self-center">
                     <h4>Tentang GoMarket</h4>

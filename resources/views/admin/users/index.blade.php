@@ -5,7 +5,7 @@
         <h1 class="h2">My users</h1>
     </div>
     @if(session()->has('success'))
-        <div class="alert alert-success alert-dismissible fade show col-lg-8" role="alert">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>

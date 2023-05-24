@@ -5,7 +5,7 @@
         <h1 class="h2">Edit User</h1>
     </div>
     @if(session()->has('failed'))
-        <div class="alert alert-danger alert-dismissible fade show col-lg-8" role="alert">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
             {{ session('failed') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>

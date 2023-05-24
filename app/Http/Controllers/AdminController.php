@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -67,7 +68,7 @@ class AdminController extends Controller {
             $request->email == $user->email &&
             !$request->file('image')
         ){
-            return redirect('/admin/users/' . $user->id . '/edit')->with('failed', 'User gagal diupdate');
+            return redirect('/admin/users/' . $user->id . '/edit')->with('failed', 'Tidak ada perubahan');
         }
         $rules = [
             'nama' => 'required|max:40',
@@ -96,8 +97,7 @@ class AdminController extends Controller {
             $validatedData['image'] = $request->file('image')->store('assets/img');
         }
 
-        User::where('id', $user->id)
-            ->update($validatedData);
+        User::where('id', $user->id)->update($validatedData);
 
         return redirect('/admin/users')->with('success', 'User berhasil diupdate');
     }
@@ -112,7 +112,7 @@ class AdminController extends Controller {
 
     public function products(){
         return view('admin.products.index', [
-            'products' => User::all()
+            'products' => Product::paginate(10)->withQueryString()
         ]);
     }
 
@@ -120,8 +120,68 @@ class AdminController extends Controller {
         return view('admin.products.add');
     }
 
-    public function addProduct(){
-        return view('admin.products.add');
+    public function addProduct(Request $request){
+        $validatedData = $request->validate([
+            'nama_produk' => 'required',
+            'harga_produk' => 'required',
+            'kategori_produk' => 'required',
+            'merek_produk' => 'required',
+            'deskripsi_produk' => 'required',
+            'image' => 'image|file|max:2048|required'
+        ]);
+
+        if($request->file('image')){
+            $validatedData['image'] = $request->file('image')->store('assets/img');
+        }
+        
+        Product::create($validatedData);
+        return redirect('/admin/products')->with('success', 'Produk baru berhasil ditambahkan');
+    }
+
+    public function showEditProduct(Product $product){
+        return view('admin.products.edit', compact('product'));
+    }
+
+    public function editProduct(Request $request, Product $product){
+        if(
+            $request->nama_produk == $product->nama_produk &&
+            $request->harga_produk == $product->harga_produk &&
+            $request->kategori_produk == $product->kategori_produk &&
+            $request->merek_produk == $product->merek_produk &&
+            $request->deskripsi_produk == $product->deskripsi_produk &&
+            !$request->file('image')
+        ){
+            return redirect('/admin/products/' . $product->id . '/edit')->with('failed', 'Produk gagal diupdate');
+        }
+        $rules = [
+            'nama_produk' => 'required',
+            'harga_produk' => 'required',
+            'kategori_produk' => 'required',
+            'merek_produk' => 'required',
+            'deskripsi_produk' => 'required',
+            'image' => 'image|file|max:2048|'
+        ];
+
+        $validatedData = $request->validate($rules);
+
+        if($request->file('image')){
+            if($request->oldImage != 'assets/img/no_photo.png'){
+                Storage::delete($request->oldImage);
+            }
+            $validatedData['image'] = $request->file('image')->store('assets/img');
+        }
+
+        Product::where('id', $product->id)->update($validatedData);
+
+        return redirect('/admin/products')->with('success', 'Product berhasil diupdate');
+    }
+
+    public function deleteProduct(Product $product){
+        if($product->image != 'assets/img/no_photo.png'){
+            Storage::delete($product->image);
+        }
+        $product->delete();
+        return redirect('/admin/products')->with('success', "Product Berhasil Dihapus!");
     }
 
     public function pesanan(){

@@ -58,7 +58,7 @@ class RegisterController extends Controller {
             $request->email == $user->email &&
             !$request->file('image')
         ){
-            return redirect('/profil/' . $user->username . '')->with('failed', 'User gagal diupdate');
+            return redirect('/profil/' . $user->username . '')->with('failed', 'Tidak ada perubahan');
         }
         $rules = [
             'nama' => 'required|max:40',
