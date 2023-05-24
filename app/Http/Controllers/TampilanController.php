@@ -72,4 +72,9 @@ class TampilanController extends Controller {
         Keranjang::truncate();
         return redirect('/')->with('success','Isi keranjang sudah kosong');
     }
+
+    public function Konfirbayar(){
+        return view('konbayar');
+    }
+
 }

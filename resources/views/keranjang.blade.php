@@ -96,6 +96,7 @@
             @method('DELETE')
             <button class="btn btn-dark" onclick="return confirm('Are you sure?')">Hapus Semua</button>
         </form>
+        <a class="btn btn-dark" href="konbayar">Berikutnya</a>
         {{-- <?php
             if(isset($_SESSION['username'])){
                 echo'
