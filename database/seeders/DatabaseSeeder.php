@@ -30,6 +30,21 @@ class DatabaseSeeder extends Seeder {
         ]);
 
         User::create([
+            'nama' => 'Serafim Sitorus',
+            'gender' => 'Pria',
+            'alamat' => 'Jalan Makmur Berdikari',
+            'kota' => 'Medan',
+            'provinsi' => 'Sumatera Utara',
+            'kode_pos' => '20114',
+            'no_hp' => '088262450134',
+            'username' => 'serser',
+            'password' => bcrypt('password'),
+            'email' => 'serafim@gamil.com',
+            'image' => 'assets/img/x-chan.jpg',
+            'level' => '0'
+        ]);
+
+        User::create([
             'nama' => 'Ibra Rizqy Siregar',
             'gender' => 'Pria',
             'alamat' => 'Jalan Pondok Surya',
