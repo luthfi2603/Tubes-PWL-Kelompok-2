@@ -3,7 +3,7 @@
 @section('container')
     <div class="container">
         <div class="row text-center">
-            <h3>Keranjang Belanja</h3>
+            <h3>Konfirmasi Pembayaran</h3>
         </div>
         <div class="row">
             <div class="col-5 mx-auto">

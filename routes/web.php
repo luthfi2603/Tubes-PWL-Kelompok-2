@@ -31,6 +31,7 @@ Route::get('/konfirmasi-pembayaran', [TampilanController::class, 'konfirBayar'])
 Route::post('/konfirmasi-pembayaran-logic', [TampilanController::class, 'konfirBayarLogic']);
 Route::get('/bukti-pembelian', [TampilanController::class, 'buktiPembelian']);
 Route::post('/bukti-pembelian', [TampilanController::class, 'selesaiBuktiPembelian']);
+Route::get('/search', [TampilanController::class, 'pencarian']);
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);

@@ -22,7 +22,11 @@
             <ul class="navbar-nav ms-auto">
                 @auth
                     <li class="nav-item">
-                        <a class="btn btn-outline-success me-2 mt-2" href="/search">Search</a>
+                        @if(Request::is('search*'))
+
+                        @else 
+                            <a class="btn btn-outline-success me-2 mt-2" href="/search">Search</a>
+                        @endif    
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -57,7 +61,12 @@
                     </li>
                 @else
                     <!--fitur masuk dan daftar-->
+                    @if(Request::is('search*'))
+
+                    @else 
                     <a class="btn btn-outline-success me-2" href="/search">Search</a>
+                    @endif
+                    
                     <a href="/login" class="btn btn-outline-success">Login</a>
                     <a href="/register" class="btn btn-outline-success mx-2">Register</a>
                 @endauth
