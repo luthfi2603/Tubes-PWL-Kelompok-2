@@ -6,8 +6,7 @@ Hal-hal yang harus dilakukan
 5. php artisan key:generate
 6. php artisan storage:link
 7. buat database, import dari file sql
-8. php artisan db:seed
-9. php artisan serve
+8. php artisan serve
 
 akun admin
 email : admin@gmail.com
