@@ -30,6 +30,21 @@ class DatabaseSeeder extends Seeder {
         ]);
 
         User::create([
+            'nama' => 'admin',
+            'gender' => 'Pria',
+            'alamat' => 'admin',
+            'kota' => 'admin',
+            'provinsi' => 'admin',
+            'kode_pos' => 'admin',
+            'no_hp' => 'admin',
+            'username' => 'admin',
+            'password' => bcrypt('admin123'),
+            'email' => 'admin@gmail.com',
+            'image' => 'assets/img/no_photo.png',
+            'level' => '1'
+        ]);
+
+        User::create([
             'nama' => 'Serafim Sitorus',
             'gender' => 'Pria',
             'alamat' => 'Jalan Berdikari',
@@ -40,7 +55,7 @@ class DatabaseSeeder extends Seeder {
             'username' => 'serser',
             'password' => bcrypt('password'),
             'email' => 'serafim@gmail.com',
-            'image' => 'assets/img/x-chan.jpg',
+            'image' => 'assets/img/no_photo.png',
             'level' => '0'
         ]);
 
@@ -59,6 +74,6 @@ class DatabaseSeeder extends Seeder {
             'level' => '0'
         ]);
 
-        Product::factory(30)->create();
+        // Product::factory(30)->create();
     }
 }
