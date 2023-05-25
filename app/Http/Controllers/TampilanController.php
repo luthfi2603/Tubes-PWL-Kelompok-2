@@ -137,4 +137,25 @@ class TampilanController extends Controller {
         session()->forget('idPembelian');
         return redirect('/')->with('success', 'Terima kasih telah belanja di GoMarket');
     }
+
+    public function pencarian(){
+        $keyword = request('search');
+        $products = Product::latest();
+    
+        if ($keyword) {
+            $products->where(function ($query) use ($keyword) {
+                $query->where('nama_produk', 'like', '%' . $keyword . '%')
+                      ->orWhere('kategori_produk', 'like', '%' . $keyword . '%');
+            });
+        }
+    
+        return view('search', [
+            'products' => $products->paginate(12)->withQueryString(),
+            'keyword' => $keyword
+        ]);
+    }
+
+    public function cari(){
+        
+    }
 }
