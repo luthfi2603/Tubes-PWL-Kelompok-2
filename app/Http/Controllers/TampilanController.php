@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Keranjang;
+use App\Models\User;
 use App\Models\Product;
+use App\Models\Keranjang;
+use App\Models\Pembelian;
+use App\Models\Pembelian_produk;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TampilanController extends Controller {
     /**
@@ -54,6 +58,7 @@ class TampilanController extends Controller {
         if($isiKeranjang->count() == 0){
             return redirect('/')->with('danger','Keranjang kosong, silahkan belanja dulu');
         }
+        session()->put('isiKeranjang', $isiKeranjang);
         return view('keranjang', compact('isiKeranjang'));
     }
 
@@ -73,8 +78,63 @@ class TampilanController extends Controller {
         return redirect('/')->with('success','Isi keranjang sudah kosong');
     }
 
-    public function Konfirbayar(){
-        return view('konbayar');
+    public function konfirBayar(Request $request){
+        $user = User::find(auth()->user()->id);
+        $total = $request->total;
+        return view('konfirmasi-pembayaran', compact('user', 'total'));
     }
 
+    public function konfirBayarLogic(Request $request){
+        $request->validate([
+            'di_bayar' => 'required|same:total',
+            'total' => 'required|same:di_bayar',
+            'tujuan' => 'required|in:DANA,OVO,go-pay',
+        ]);
+
+        $idPembelian = substr(uniqid(), 5, 5);
+        $tanggalPembelian = date('Y-m-d');
+
+        DB::table('pembelians')->insert([
+            'id' => $idPembelian,
+            'user_id' => auth()->user()->id,
+            'nama_pembeli' => $request->namaPembeli,
+            'tanggal_pembelian' => $tanggalPembelian,
+            'total_pembelian' => $request->total,
+            'e_money' => $request->tujuan,
+            'e_money_number' => $request->noHpPembayaran,
+            'status_pembayaran' => 'PAID',
+            'status_pembelian' => 'PENDING'
+        ]);
+
+        $isiKeranjang = session()->get('isiKeranjang');
+        foreach($isiKeranjang as $data) {
+            DB::table('pembelian_produks')->insert([
+                'id' => NULL,
+                'pembelian_id' => $idPembelian,
+                'image' => $data['image'],
+                'product_id' => $data['id_produk'],
+                'nama' => $data['nama_produk'],
+                'jumlah' => $data['jumlah'],
+                'harga' => $data['harga_produk']
+            ]);
+        }
+
+        session()->forget('isiKeranjang');
+        Keranjang::truncate();
+        session()->put('idPembelian', $idPembelian);
+        return redirect('/bukti-pembelian');
+    }
+
+    public function buktiPembelian(){
+        $idPembelian = session()->get('idPembelian');
+        $data1 = Pembelian::where('id', $idPembelian)->get();
+        $data2 = Pembelian_produk::where('pembelian_id', $idPembelian)->get();
+        $data1 = $data1[0];
+        return view('bukti-pembelian', compact('data1', 'data2'));
+    }
+
+    public function selesaiBuktiPembelian(){
+        session()->forget('idPembelian');
+        return redirect('/')->with('success', 'Terima kasih telah belanja di GoMarket');
+    }
 }

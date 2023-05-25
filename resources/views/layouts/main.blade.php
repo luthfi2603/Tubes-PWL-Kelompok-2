@@ -83,17 +83,27 @@
                 </div>
                 <div class="col-md-4 align-self-center">
                     <h4>Kontak</h4>
-                    <p>Jl. Jend. Sudirman No. 123<br>
-                        Jakarta 12345<br>
-                        Email: info@gomarket.com<br>
-                        Telepon: 021-1234567</p>
+                    <p>
+                        Jalan Makmur Gang Bakti No. 16b <br>
+                        Medan 20114 <br>
+                        Email: luthfim904@gmail.com <br>
+                        Telepon: 08983874300
+                    </p>
                 </div>
             </div>
             <hr>
             <p class="m-0 pb-4 text-center">© 2023 GoMarket. All rights reserved.</p>
         </div>
     </footer>
-
+    <script>
+        function PrintDiv(divName){
+            var printContents = document.getElementById(divName).innerHTML;
+            var orginialContents = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = orginialContents;
+        }
+    </script>
     <script src="{{ asset('assets/js/bootstrap.bundle.js') }}"></script>
 </body>
 

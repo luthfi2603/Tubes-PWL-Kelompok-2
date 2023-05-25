@@ -27,7 +27,10 @@ Route::get('/keranjang', [TampilanController::class, 'showKeranjang']);
 Route::post('/keranjang', [TampilanController::class, 'keranjang']);
 Route::delete('/keranjang/{keranjang}/delete', [TampilanController::class, 'deleteProduct'])->name('productKeranjang.delete');
 Route::delete('/keranjang/delete', [TampilanController::class, 'deleteAllProduct'])->name('productKeranjangAll.delete');
-Route::get('/konbayar', [TampilanController::class, 'konfirbayar']);
+Route::get('/konfirmasi-pembayaran', [TampilanController::class, 'konfirBayar']);
+Route::post('/konfirmasi-pembayaran-logic', [TampilanController::class, 'konfirBayarLogic']);
+Route::get('/bukti-pembelian', [TampilanController::class, 'buktiPembelian']);
+Route::post('/bukti-pembelian', [TampilanController::class, 'selesaiBuktiPembelian']);
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);

@@ -19,18 +19,10 @@
                 <th>Total</th>
                 <th>Aksi</th>
             </tr>
-            {{-- <?php
-                if(!empty($_SESSION["keranjang"])){
-                    $total = "";
-                    foreach ($_SESSION["keranjang"] as $keys => $values) {
-                        $harga = $values['harga'];
-                        $subtotal = $values['qty'] * $harga;
-                        $total = ((int)$total + (int)$subtotal);
-            ?> --}}
             @php
                 $total = 0;
             @endphp
-            @foreach ($isiKeranjang as $item)
+            @foreach($isiKeranjang as $item)
                 @php
                     $subtotal = $item->harga_produk * $item->jumlah;
                     $total += $subtotal;
@@ -58,26 +50,8 @@
                         </form>
                     </td>
                 </tr>
-                {{-- <?php
-                        }
-                    }
-                ?> --}}
             @endforeach
         </table>
-        {{-- <?php
-            if(isset($_GET['item'])){
-                foreach ($_SESSION["keranjang"] as $keys => $values) {
-                    if($values['product_id'] == $_GET['item'] ){
-                        unset($_SESSION['keranjang'][$keys]);
-                    }
-                }
-                echo"
-                    <script>
-                        document.location = '?p=keranjang';
-                    </script>
-                ";
-            }
-        ?> --}}
         <div class="card mb-3 text-huruf">
             <div class="row">
                 <div class="col ms-4 col-4">
@@ -96,28 +70,10 @@
             @method('DELETE')
             <button class="btn btn-dark" onclick="return confirm('Are you sure?')">Hapus Semua</button>
         </form>
-        <a class="btn btn-dark" href="konbayar">Berikutnya</a>
-        {{-- <?php
-            if(isset($_SESSION['username'])){
-                echo'
-                    <a class="btn btn-dark" href="?p=konPembayaran">Berikutnya</a>
-                ';
-            }else{
-                echo'
-                    <a class="btn btn-dark" href="?p=login">Berikutnya</a>
-                ';
-            }
-
-            if(isset($_GET['act'])){
-                if($_GET['act'] == "clear"){
-                    unset($_SESSION['keranjang']);
-                    echo"
-                        <script>
-                            document.location.href = '?p=keranjang';
-                        </script>
-                    ";
-                }
-            }
-        ?> --}}
+        <form action="/konfirmasi-pembayaran" method="GET" class="d-inline">
+            @csrf
+            <input type="hidden" name="total" value="{{ $total }}">
+            <button class="btn btn-dark" type="submit">Berikutnya</button>
+        </form>
     </div>
 @endsection
