@@ -63,8 +63,9 @@ Route::get('/admin/products/{product}/edit', [AdminController::class, 'showEditP
 Route::put('/admin/products/{product}/edit', [AdminController::class, 'editProduct'])->name('products.update')->middleware('admin');
 Route::delete('/admin/products/{product}/delete', [AdminController::class, 'deleteProduct'])->name('products.delete')->middleware('admin');
 Route::get('/admin/pesanan', [AdminController::class, 'pesanan'])->middleware('admin');
-Route::get('/admin/edit-status-pengiriman/{pembelian:id_pembelian}', [AdminController::class, 'showEditStatusPengiriman'])->name('edit-status')->middleware('admin');
-Route::put('/admin/edit-status-pengiriman/', [AdminController::class, 'editStatusPengiriman'])->name('edit-status-logic')->middleware('admin');
+Route::get('/admin/pesanan/edit-status-pengiriman/{pembelian:id_pembelian}', [AdminController::class, 'showEditStatusPengiriman'])->name('edit-status')->middleware('admin');
+Route::put('/admin/pesanan/edit-status-pengiriman/', [AdminController::class, 'editStatusPengiriman'])->name('edit-status-logic')->middleware('admin');
+Route::get('/admin/pesanan/faktur-pemesanan/{id}', [AdminController::class, 'fakturPemesanan'])->name('faktur')->middleware('admin');
 
 
 Route::get('/1', function(){

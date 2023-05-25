@@ -43,6 +43,10 @@
                         <button class="btn btn-dark mt-2" type="submit">Tambah ke keranjang</button>
                         @if(session()->has('success'))
                             <a class="btn btn-dark mt-2" href="/">Lanjut Belanja</a>
+                            <a class="btn btn-dark mt-2" href="/keranjang">Keranjang</a>
+                        @elseif(session()->has('status'))
+                            <a class="btn btn-dark mt-2" href="/">Lanjut Belanja</a>
+                            <a class="btn btn-dark mt-2" href="/keranjang">Keranjang</a>
                         @endif
                     @endcan
                 </form>

@@ -25,8 +25,16 @@
     </div>
 
 
+    <script>
+        function PrintDiv(divName){
+            var printContents = document.getElementById(divName).innerHTML;
+            var orginialContents = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = orginialContents;
+        }
+    </script>
     <script src="{{ asset('assets/js/bootstrap.bundle.js') }}"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
     <script src="{{ asset('assets/js/dashboard.js') }}"></script>
 </body>

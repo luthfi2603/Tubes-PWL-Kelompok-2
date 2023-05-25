@@ -37,7 +37,7 @@
                         <td>{{ $item->status_pembayaran }}</td>
                         <td>{{ $item->status_pembelian }}</td>
                         <td><a href="{{ route('edit-status', ['pembelian' => $item->id_pembelian]) }}" class="badge bg-warning"><span data-feather="edit"></span></a></td>
-                        <td><a href="#" class="badge bg-primary"><span data-feather="printer"></span></a></td>
+                        <td><a href="{{ route('faktur', ['id' => $item->id_pembelian]) }}" class="badge bg-primary"><span data-feather="printer"></span></a></td>
                     </tr>
                 @endforeach
             </tbody>

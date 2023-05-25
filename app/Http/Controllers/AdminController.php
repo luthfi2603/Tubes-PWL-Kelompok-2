@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pembelian_produk;
 use App\Models\Pembelian;
 use App\Models\Product;
 use App\Models\User;
@@ -186,7 +187,7 @@ class AdminController extends Controller {
     }
 
     public function showEditStatusPengiriman(Pembelian $pembelian){
-        return view('edit-status-pengiriman', compact('pembelian'));
+        return view('admin.pesanan.edit-status-pengiriman', compact('pembelian'));
     }
 
     public function editStatusPengiriman(Request $request){
@@ -199,5 +200,13 @@ class AdminController extends Controller {
         ]);
 
         return redirect('/admin/pesanan')->with('success', 'Status pengiriman berhasil dirubah');
+    }
+
+    public function fakturPemesanan(Request $request){
+        $idPembelian = $request->id;
+        $data1 = Pembelian::where('id_pembelian', $idPembelian)->get();
+        $data2 = Pembelian_produk::where('pembelian_id', $idPembelian)->get();
+        $data1 = $data1[0];
+        return view('admin.pesanan.faktur-pemesanan', compact('data1', 'data2', 'idPembelian'));
     }
 }

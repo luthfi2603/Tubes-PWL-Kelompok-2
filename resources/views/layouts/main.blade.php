@@ -60,13 +60,11 @@
                         </ul>
                     </li>
                 @else
-                    <!--fitur masuk dan daftar-->
                     @if(Request::is('search*'))
 
                     @else 
-                    <a class="btn btn-outline-success me-2" href="/search">Search</a>
+                        <a class="btn btn-outline-success me-2" href="/search">Search</a>
                     @endif
-                    
                     <a href="/login" class="btn btn-outline-success">Login</a>
                     <a href="/register" class="btn btn-outline-success mx-2">Register</a>
                 @endauth

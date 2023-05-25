@@ -8,7 +8,7 @@
         </div>
     @endif
     <div id="divToPrint">
-        <div class="container mtNav">
+        <div class="container">
             <div class="row">
                 <div class="col">
                     <img src="{{ asset('assets/img/logo.png') }}" width="100px">
@@ -87,8 +87,9 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
             <div class="col-lg-12">
-                <p class="bukti1">
+                <p>
                     Silahkan Melakukan Pembayaran sebesar Rp {{ number_format($total, 0, '.', '.') }},- ke <br>
                     <strong>
                         {{ $data1->e_money }} 08983874300 A/N GoMarket. <br>
@@ -97,7 +98,7 @@
                     jika ada keluhan, kritik, dan saran hubungi Customer service GoMarket di nomor : 08983874300
                 </p>
                 <p>
-                    <strong class="bukti2"> NB:</strong>
+                    <strong> NB:</strong>
                     simpan bukti pembelian ini sampai barang sudah terkirim kepada anda.
                 </p>
             </div>
@@ -113,6 +114,5 @@
                 <input type="submit" name="finish" value="Selesai" class="btn btn-dark">
             </form>
         </div>
-        
     </div>
 @endsection

@@ -20,6 +20,7 @@ class LoginController extends Controller {
 
         if(Auth::attempt($credentials)){
             $request->session()->regenerate();
+            Keranjang::truncate();
             return redirect()->intended('/');
         }
 
@@ -27,7 +28,6 @@ class LoginController extends Controller {
     }
 
     public function logout(){
-        Keranjang::truncate();
         Auth::logout();
         request()->session()->invalidate();
         request()->session()->regenerateToken();
