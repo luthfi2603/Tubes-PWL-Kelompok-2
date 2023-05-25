@@ -68,4 +68,7 @@
             </tbody>
         </table>
     </div>
+    <div class="d-flex justify-content-center mb-5">
+        {{ $users->links() }}
+    </div>
 @endsection

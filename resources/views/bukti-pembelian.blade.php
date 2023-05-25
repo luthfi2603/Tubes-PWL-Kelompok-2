@@ -1,6 +1,12 @@
 @extends('layouts.main')
 
 @section('container')
+    @if(session()->has('success'))
+        <div class="alert alert-success alert-dismissible fade show col-8 mx-auto" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     <div id="divToPrint">
         <div class="container mtNav">
             <div class="row">
@@ -16,7 +22,7 @@
                 </div>
                 <div class="col-12 text-center">
                     <h3>Bukti Pembelian</h3>
-                    <h5>Nomor Pemesanan : {{ session('idPembelian') }}</h5>
+                    <h5>Kode Pemesanan : {{ session('idPembelian') }}</h5>
                 </div>
                 <hr>
             </div>

@@ -14,7 +14,7 @@ return new class extends Migration {
         Schema::create('pembelian_produks', function (Blueprint $table) {
             $table->id();
             $table->string('pembelian_id', 11);
-            $table->foreign('pembelian_id')->references('id')->on('pembelians')->onDelete('restrict');
+            $table->foreign('pembelian_id')->references('id_pembelian')->on('pembelians')->onDelete('restrict');
             $table->string('image');
             $table->foreignId('product_id');
             $table->string('nama');

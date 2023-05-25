@@ -41,6 +41,9 @@
                         <h5 class="m-0 mt-2">Jumlah</h5>
                         <input class="jumlah" type="number" name="jumlah" min="1"> <br>
                         <button class="btn btn-dark mt-2" type="submit">Tambah ke keranjang</button>
+                        @if(session()->has('success'))
+                            <a class="btn btn-dark mt-2" href="/">Lanjut Belanja</a>
+                        @endif
                     @endcan
                 </form>
             </div>

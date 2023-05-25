@@ -3,7 +3,7 @@
 @section('container')
     <div class="container">
         <div class="row text-center">
-            <h3>Keranjang Belanja</h3>
+            <h3>Konfirmasi Pembayaran</h3>
         </div>
         <div class="row">
             <div class="col-5 mx-auto">
@@ -46,7 +46,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="tujuan" class="text-primary">e-money</label>
-                        <select name="tujuan" id="tujuan" class="form-select @error('tujuan') is-invalid @enderror">
+                        <select name="tujuan" id="tujuan" class="form-select @error('tujuan') is-invalid @enderror" autofocus>
                             @if(old('tujuan') == 'DANA')
                                 <option value="DANA" selected>DANA</option>
                                 <option value="OVO">OVO</option>

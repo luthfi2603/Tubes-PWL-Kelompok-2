@@ -17,7 +17,7 @@ class TampilanController extends Controller {
      */
     public function myProduct():View {
         return view('index', [
-            'products' => Product::paginate(12)->withQueryString()
+            'products' => Product::latest()->paginate(12)->withQueryString()
         ]);
     }
 
@@ -94,8 +94,8 @@ class TampilanController extends Controller {
         $idPembelian = substr(uniqid(), 5, 5);
         $tanggalPembelian = date('Y-m-d');
 
-        DB::table('pembelians')->insert([
-            'id' => $idPembelian,
+        Pembelian::create([
+            'id_pembelian' => $idPembelian,
             'user_id' => auth()->user()->id,
             'nama_pembeli' => $request->namaPembeli,
             'tanggal_pembelian' => $tanggalPembelian,
@@ -122,12 +122,12 @@ class TampilanController extends Controller {
         session()->forget('isiKeranjang');
         Keranjang::truncate();
         session()->put('idPembelian', $idPembelian);
-        return redirect('/bukti-pembelian');
+        return redirect('/bukti-pembelian')->with('success', "Konfirmasi pembayaran diterima, silahkan print bukti pembelian");
     }
 
     public function buktiPembelian(){
         $idPembelian = session()->get('idPembelian');
-        $data1 = Pembelian::where('id', $idPembelian)->get();
+        $data1 = Pembelian::where('id_pembelian', $idPembelian)->get();
         $data2 = Pembelian_produk::where('pembelian_id', $idPembelian)->get();
         $data1 = $data1[0];
         return view('bukti-pembelian', compact('data1', 'data2'));

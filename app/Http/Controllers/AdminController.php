@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pembelian;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -14,7 +15,7 @@ class AdminController extends Controller {
 
     public function myUsers(){
         return view('admin.users.index', [
-            'users' => User::all()
+            'users' => User::paginate(10)->withQueryString()
         ]);
     }
 
@@ -112,7 +113,7 @@ class AdminController extends Controller {
 
     public function products(){
         return view('admin.products.index', [
-            'products' => Product::paginate(10)->withQueryString()
+            'products' => Product::latest()->paginate(10)->withQueryString()
         ]);
     }
 
@@ -165,9 +166,6 @@ class AdminController extends Controller {
         $validatedData = $request->validate($rules);
 
         if($request->file('image')){
-            if($request->oldImage != 'assets/img/no_photo.png'){
-                Storage::delete($request->oldImage);
-            }
             $validatedData['image'] = $request->file('image')->store('assets/img');
         }
 
@@ -177,16 +175,29 @@ class AdminController extends Controller {
     }
 
     public function deleteProduct(Product $product){
-        if($product->image != 'assets/img/no_photo.png'){
-            Storage::delete($product->image);
-        }
         $product->delete();
         return redirect('/admin/products')->with('success', "Product Berhasil Dihapus!");
     }
 
     public function pesanan(){
         return view('admin.pesanan.index', [
-            'users' => User::all()
+            'pembelian' => Pembelian::all()
         ]);
+    }
+
+    public function showEditStatusPengiriman(Pembelian $pembelian){
+        return view('edit-status-pengiriman', compact('pembelian'));
+    }
+
+    public function editStatusPengiriman(Request $request){
+        $request->validate([
+            'pengiriman' => 'required|in:PENDING,SENT'
+        ]);
+
+        Pembelian::where('id_pembelian', $request->id)->update([
+            'status_pembelian' => $request->pengiriman
+        ]);
+
+        return redirect('/admin/pesanan')->with('success', 'Status pengiriman berhasil dirubah');
     }
 }

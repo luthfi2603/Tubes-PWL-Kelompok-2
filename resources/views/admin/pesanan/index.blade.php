@@ -5,7 +5,7 @@
     <h1 class="h2">Pesanan</h1>
 </div>
     @if(session()->has('success'))
-        <div class="alert alert-success alert-dismissible fade show col-lg-8" role="alert">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
@@ -25,20 +25,19 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($users as $user)
+                @if($pembelian->count() == 0)
+                <td colspan="8">Tidak ada pembelian</td>
+                @endif
+                @foreach($pembelian as $item)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        @if($user->image == 'assets/img/no_photo.png')
-                            <td><img src="{{ asset('../' . $user->image . '') }}" width="50px"></td>
-                        @else
-                            <td><img src="{{ asset('storage/' . $user->image . '') }}" width="50px"></td>
-                        @endif
-                        <td>{{ $user->nama }}</td>
-                        <td>{{ $user->username }}</td>
-                        <td>{{ $user->email }}</td>
-                        <td>{{ $user->no_hp }}</td>
-                        <td>{{ $user->gender }}</td>
-                        <td>{{ $user->alamat }}</td>
+                        <td>{{ $item->tanggal_pembelian }}</td>
+                        <td>{{ $item->id_pembelian }}</td>
+                        <td>Rp {{ number_format($item->total_pembelian, 0, '.', '.') }}</td>
+                        <td>{{ $item->status_pembayaran }}</td>
+                        <td>{{ $item->status_pembelian }}</td>
+                        <td><a href="{{ route('edit-status', ['pembelian' => $item->id_pembelian]) }}" class="badge bg-warning"><span data-feather="edit"></span></a></td>
+                        <td><a href="#" class="badge bg-primary"><span data-feather="printer"></span></a></td>
                     </tr>
                 @endforeach
             </tbody>
