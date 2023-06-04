@@ -66,23 +66,3 @@ Route::get('/admin/pesanan', [AdminController::class, 'pesanan'])->middleware('a
 Route::get('/admin/pesanan/edit-status-pengiriman/{pembelian:id_pembelian}', [AdminController::class, 'showEditStatusPengiriman'])->name('edit-status')->middleware('admin');
 Route::put('/admin/pesanan/edit-status-pengiriman/', [AdminController::class, 'editStatusPengiriman'])->name('edit-status-logic')->middleware('admin');
 Route::get('/admin/pesanan/faktur-pemesanan/{id}', [AdminController::class, 'fakturPemesanan'])->name('faktur')->middleware('admin');
-
-
-Route::get('/1', function(){
-    return view('bagian_keisya.BuktiPembelian');
-});
-Route::get('/2', function(){
-    return view('bagian_keisya.editPembelian');
-});
-Route::get('/3', function(){
-    return view('bagian_keisya.emailConfirm');
-});
-Route::get('/4', function(){
-    return view('bagian_keisya.ResetPass');
-});
-Route::get('/5', function(){
-    return view('bagian_keisya.tambahDataproduk');
-});
-Route::get('/6', function(){
-    return view('bagian_keisya.ubahPass');
-});
